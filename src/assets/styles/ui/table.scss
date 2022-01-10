@@ -1,0 +1,36 @@
+.theme--light.v-data-table {
+  background-color: transparent;
+
+  .v-data-table__wrapper {
+    table {
+      thead {
+        tr > th {
+          color: $text-color;
+          font-size: 26px;
+          border-bottom: thin solid rgba(0, 0, 0, 0.12);
+        }
+
+        tr:last-child > th {
+          border-bottom: thin solid $border-color;
+        }
+      }
+
+      tbody {
+        tr {
+          &:not(:last-child) > td:not(.v-data-table__mobile-row) {
+            border-bottom: thin solid $border-color;
+          }
+
+          &:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
+            background: transparent;
+            backdrop-filter: blur(20px);
+          }
+
+          td {
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+}
