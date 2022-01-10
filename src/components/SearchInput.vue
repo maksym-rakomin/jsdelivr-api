@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search-input glassmorphism-box">
     <v-text-field
       v-model="search"
       hide-details="auto"
@@ -22,4 +22,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.search-input {
+  padding: 16px;
+  margin-bottom: 32px;
+}
+</style>
