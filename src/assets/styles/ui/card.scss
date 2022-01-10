@@ -1,0 +1,9 @@
+.theme--light.v-card {
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.87);
+  width: 100%;
+
+  &:not(.v-sheet--outlined) {
+    box-shadow: none;
+  }
+}
