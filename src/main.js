@@ -3,7 +3,7 @@ import Vue from 'vue'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
-import '@/assets/styles/main.sass'
+import '@/assets/styles/main.scss'
 
 Vue.config.productionTip = false
 
