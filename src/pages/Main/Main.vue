@@ -1,7 +1,11 @@
 <template>
   <div class="page main">
     <v-container>
-      <SearchInput @search-input="handleSearchInput" />
+      <div class="main__item">
+        <SearchInput @search-input="handleSearchInput" />
+
+        <Table />
+      </div>
 
       <Footer />
     </v-container>
@@ -11,9 +15,10 @@
 <script>
 import Footer from '@/components/Footer'
 import SearchInput from '@/components/SearchInput'
+import Table from '@/components/Table'
 export default {
   name: 'Main',
-  components: { SearchInput, Footer },
+  components: { Table, SearchInput, Footer },
   data: () => ({
     value: 'test',
   }),
