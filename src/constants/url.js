@@ -1,1 +1,2 @@
-export const BASE_API_URL = 'https://data.jsdelivr.com/v1'
+export const BASE_API_URL = 'https://registry.npmjs.org/-/v1'
+export const POPULAR_PACKAGES = 'search'

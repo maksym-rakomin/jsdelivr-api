@@ -1,7 +1,7 @@
 <template>
   <div class="search-input glassmorphism-box">
     <v-text-field
-      v-model="search"
+      v-model="searchLocal"
       label="Search..."
       hide-details="auto"
       @input="handleSearchInput"
@@ -12,12 +12,26 @@
 <script>
 export default {
   name: 'SearchInput',
+  props: {
+    search: {
+      type: String,
+      default: '',
+    },
+  },
   data: () => ({
-    search: '',
+    searchLocal: '',
   }),
+  watch: {
+    search: {
+      handler(val) {
+        this.searchLocal = val
+      },
+      immediate: true,
+    },
+  },
   methods: {
     handleSearchInput() {
-      this.$emit('search-input', { search: this.search })
+      this.$emit('search-input', { search: this.searchLocal })
     },
   },
 }
