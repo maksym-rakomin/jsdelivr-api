@@ -2,6 +2,7 @@
   <div class="search-input glassmorphism-box">
     <v-text-field
       v-model="search"
+      label="Search..."
       hide-details="auto"
       @input="handleSearchInput"
     />
