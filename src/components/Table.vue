@@ -13,7 +13,7 @@
           <tr
             v-for="item in itemList"
             :key="item.package.name"
-            @click="handleClickTableItem(item.name)"
+            @click="handleClickTableItem(item)"
           >
             <td>{{ item.package.name }}</td>
             <td>{{ item.package.version }}</td>
@@ -38,8 +38,8 @@ export default {
     },
   },
   methods: {
-    handleClickTableItem(id) {
-      console.log(id)
+    handleClickTableItem(item) {
+      this.$emit('set-current-item', item)
     },
   },
 }

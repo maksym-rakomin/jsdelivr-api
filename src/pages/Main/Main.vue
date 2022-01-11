@@ -5,7 +5,11 @@
         <SearchInput :search="searchText" @search-input="handleSearchInput" />
 
         <v-fade-transition>
-          <Table v-show="isShowTable" :itemList="packagesList" />
+          <Table
+            v-show="isShowTable"
+            :itemList="packagesList"
+            @set-current-item="handleSetCurrentItem"
+          />
         </v-fade-transition>
 
         <v-fade-transition>
@@ -21,6 +25,11 @@
       <Loader :is-show-loader="isLoading" />
 
       <Footer />
+
+      <ShowDetailPackage
+        :dialog-data="currentItem"
+        @close-dialog="handleSetCurrentItem"
+      />
     </v-container>
   </div>
 </template>
@@ -32,12 +41,20 @@ import Footer from '@/components/Footer'
 import Loader from '@/components/Loader'
 import Pagination from '@/components/Pagination'
 import SearchInput from '@/components/SearchInput'
+import ShowDetailPackage from '@/components/dialogs/showDialogsPackage/ShowDetailPackage'
 import Table from '@/components/Table'
 export default {
   name: 'Main',
-  components: { Loader, Pagination, Table, SearchInput, Footer },
+  components: {
+    ShowDetailPackage,
+    Loader,
+    Pagination,
+    Table,
+    SearchInput,
+    Footer,
+  },
   data: () => ({
-    value: 'test',
+    currentItem: {},
   }),
   computed: {
     ...mapGetters({
@@ -58,8 +75,6 @@ export default {
       return this.packagesList.length > 0
     },
     isShowPagination() {
-      console.log()
-
       return (
         this.isShowTable &&
         this.pagination.totalPage * this.pagination.perPage >
@@ -78,11 +93,17 @@ export default {
     }),
     handleSearchInput({ search }) {
       this.actualSearchText = search
-      debounce(this.fetchPackagesList, 700)
+      this.fetchPackages()
     },
     handleChangePage({ page }) {
       this.setCurrentPage(page)
+      this.fetchPackages()
+    },
+    fetchPackages() {
       debounce(this.fetchPackagesList, 700)
+    },
+    handleSetCurrentItem(item) {
+      this.currentItem = item
     },
   },
 }

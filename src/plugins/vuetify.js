@@ -1,4 +1,4 @@
-import IconTelegram from '@/components/CustomIcons/IconTelegram'
+import IconTelegram from '@/components/customIcons/IconTelegram'
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib/framework'
 
