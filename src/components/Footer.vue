@@ -53,8 +53,6 @@ export default {
   }),
   computed: {
     isExtraSmallScreen() {
-      console.log(this.$vuetify.breakpoint, this.$vuetify.breakpoint.xs)
-
       return this.$vuetify.breakpoint.xs
     },
     getAvatarAlignment() {
