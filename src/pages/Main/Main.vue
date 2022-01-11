@@ -5,6 +5,8 @@
         <SearchInput @search-input="handleSearchInput" />
 
         <Table />
+
+        <Pagination />
       </div>
 
       <Footer />
@@ -14,11 +16,12 @@
 
 <script>
 import Footer from '@/components/Footer'
+import Pagination from '@/components/Pagination'
 import SearchInput from '@/components/SearchInput'
 import Table from '@/components/Table'
 export default {
   name: 'Main',
-  components: { Table, SearchInput, Footer },
+  components: { Pagination, Table, SearchInput, Footer },
   data: () => ({
     value: 'test',
   }),

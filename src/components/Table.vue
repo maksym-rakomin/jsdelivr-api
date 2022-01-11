@@ -81,5 +81,6 @@ export default {
 <style lang="scss">
 .table-result {
   padding: 16px;
+  margin-bottom: 32px;
 }
 </style>
