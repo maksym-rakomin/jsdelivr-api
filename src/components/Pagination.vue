@@ -1,6 +1,6 @@
 <template>
   <div class="pagination glassmorphism-box">
-    <v-pagination :value="4" :length="15" @input="handleSetPage" />
+    <v-pagination circle :value="4" :length="15" @input="handleSetPage" />
   </div>
 </template>
 
