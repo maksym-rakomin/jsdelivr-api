@@ -11,5 +11,5 @@ module.exports = {
     },
   },
 
-  publicPath: "/jsdelivr-api/",
+  publicPath: '/jsdelivr-api/',
 }
