@@ -93,6 +93,11 @@ export default {
     }),
     handleSearchInput({ search }) {
       this.actualSearchText = search
+
+      if (this.pagination.currentPage !== 1) {
+        this.setCurrentPage(1)
+      }
+
       this.fetchPackages()
     },
     handleChangePage({ page }) {
