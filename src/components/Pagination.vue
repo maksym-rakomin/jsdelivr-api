@@ -1,33 +1,31 @@
 <template>
   <div class="pagination glassmorphism-box">
     <v-pagination
-      circle
-      :value="currentPage"
+      rounded="circle"
+      :model-value="currentPage"
       :length="totalPage"
       :total-visible="9"
-      @input="handleSetPage"
+      @update:model-value="handleSetPage"
     />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Pagination',
-  props: {
-    currentPage: {
-      type: Number,
-      default: 1,
-    },
-    totalPage: {
-      type: Number,
-      default: 0,
-    },
+<script setup>
+const props = defineProps({
+  currentPage: {
+    type: Number,
+    default: 1,
   },
-  methods: {
-    handleSetPage(page) {
-      this.$emit('change-page', { page })
-    },
+  totalPage: {
+    type: Number,
+    default: 0,
   },
+})
+
+const emit = defineEmits(['change-page'])
+
+const handleSetPage = page => {
+  emit('change-page', { page })
 }
 </script>
 

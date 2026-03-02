@@ -1,11 +1,5 @@
 export const socialLinks = [
   {
-    id: 1,
-    title: 'telegram',
-    link: 'https://t.me/maksym_rakomin',
-    icon: '$telegram',
-  },
-  {
     id: 2,
     title: 'github',
     link: 'https://github.com/maksym-rakomin',

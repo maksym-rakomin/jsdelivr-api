@@ -34,84 +34,67 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import { debounce } from '@/core/helpers'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-import Footer from '@/components/Footer'
-import Loader from '@/components/Loader'
-import Pagination from '@/components/Pagination'
-import SearchInput from '@/components/SearchInput'
-import ShowDetailPackage from '@/components/dialogs/showDialogsPackage/ShowDetailPackage'
-import Table from '@/components/Table'
-export default {
-  name: 'Main',
-  components: {
-    ShowDetailPackage,
-    Loader,
-    Pagination,
-    Table,
-    SearchInput,
-    Footer,
-  },
-  data: () => ({
-    currentItem: {},
-  }),
-  computed: {
-    ...mapGetters({
-      packagesList: 'getPackagesList',
-      searchText: 'getSearchText',
-      pagination: 'getPagination',
-      isLoading: 'getIsLoading',
-    }),
-    actualSearchText: {
-      get() {
-        return this.searchText
-      },
-      set(val) {
-        this.setSearchText(val)
-      },
-    },
-    isShowTable() {
-      return this.packagesList.length > 0
-    },
-    isShowPagination() {
-      return (
-        this.isShowTable &&
-        this.pagination.totalPage * this.pagination.perPage >
-          this.pagination.perPage
-      )
-    },
-  },
-  mounted() {
-    this.fetchPackagesList()
-  },
-  methods: {
-    ...mapActions({ fetchPackagesList: 'fetchPackagesList' }),
-    ...mapMutations({
-      setSearchText: 'setSearchText',
-      setCurrentPage: 'setCurrentPage',
-    }),
-    handleSearchInput({ search }) {
-      this.actualSearchText = search
+import Footer from '@/components/Footer.vue'
+import Loader from '@/components/Loader.vue'
+import Pagination from '@/components/Pagination.vue'
+import SearchInput from '@/components/SearchInput.vue'
+import ShowDetailPackage from '@/components/dialogs/showDialogsPackage/ShowDetailPackage.vue'
+import Table from '@/components/Table.vue'
 
-      if (this.pagination.currentPage !== 1) {
-        this.setCurrentPage(1)
-      }
+const store = useStore()
 
-      this.fetchPackages()
-    },
-    handleChangePage({ page }) {
-      this.setCurrentPage(page)
-      this.fetchPackages()
-    },
-    fetchPackages() {
-      debounce(this.fetchPackagesList, 700)
-    },
-    handleSetCurrentItem(item) {
-      this.currentItem = item
-    },
-  },
+const currentItem = ref({})
+
+// Vuex Getters
+const packagesList = computed(() => store.getters.getPackagesList)
+const searchText = computed(() => store.getters.getSearchText)
+const pagination = computed(() => store.getters.getPagination)
+const isLoading = computed(() => store.getters.getIsLoading)
+
+const actualSearchText = computed({
+  get: () => searchText.value,
+  set: val => store.commit('setSearchText', val),
+})
+
+const isShowTable = computed(() => packagesList.value.length > 0)
+const isShowPagination = computed(
+  () =>
+    isShowTable.value &&
+    pagination.value.totalPage * pagination.value.perPage >
+      pagination.value.perPage,
+)
+
+// Vuex Actions & Mutations
+const fetchPackagesList = () => store.dispatch('fetchPackagesList')
+const setCurrentPage = page => store.commit('setCurrentPage', page)
+
+const fetchPackages = debounce(fetchPackagesList, 700)
+
+const handleSearchInput = ({ search }) => {
+  actualSearchText.value = search
+
+  if (pagination.value.currentPage !== 1) {
+    setCurrentPage(1)
+  }
+  fetchPackages()
 }
+
+const handleChangePage = ({ page }) => {
+  setCurrentPage(page)
+  fetchPackages()
+}
+
+const handleSetCurrentItem = item => {
+  currentItem.value = item || {}
+}
+
+onMounted(() => {
+  fetchPackagesList()
+})
 </script>
 
 <style lang="scss">
