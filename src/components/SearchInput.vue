@@ -4,36 +4,36 @@
       v-model="searchLocal"
       label="Search..."
       hide-details="auto"
-      @input="handleSearchInput"
+      variant="underlined"
+      @update:model-value="handleSearchInput"
     />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SearchInput',
-  props: {
-    search: {
-      type: String,
-      default: '',
-    },
+<script setup>
+import { ref, watch } from 'vue'
+
+const props = defineProps({
+  search: {
+    type: String,
+    default: '',
   },
-  data: () => ({
-    searchLocal: '',
-  }),
-  watch: {
-    search: {
-      handler(val) {
-        this.searchLocal = val
-      },
-      immediate: true,
-    },
+})
+
+const emit = defineEmits(['search-input'])
+
+const searchLocal = ref('')
+
+watch(
+  () => props.search,
+  val => {
+    searchLocal.value = val
   },
-  methods: {
-    handleSearchInput() {
-      this.$emit('search-input', { search: this.searchLocal })
-    },
-  },
+  { immediate: true },
+)
+
+const handleSearchInput = () => {
+  emit('search-input', { search: searchLocal.value })
 }
 </script>
 

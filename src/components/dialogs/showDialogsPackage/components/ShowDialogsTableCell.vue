@@ -1,4 +1,6 @@
 <script>
+import { h } from 'vue'
+
 export default {
   name: 'ShowDialogsTableCell',
   props: {
@@ -7,35 +9,35 @@ export default {
       default: '',
     },
   },
-  methods: {
-    checkIsObject(obj) {
-      return typeof obj === 'object' && obj !== null
-    },
-  },
-  render(createElement) {
-    let renderData = [this.data]
+  setup(props) {
+    const checkIsObject = obj => typeof obj === 'object' && obj !== null
 
-    if (Array.isArray(this.data)) {
-      renderData = this.data.map(item => {
-        if (this.checkIsObject(item)) {
-          return Object.keys(item).map(subItem =>
-            createElement('div', item[subItem]),
-          )
-        }
+    return () => {
+      let renderData = [props.data]
 
-        return createElement('div', item)
-      })
+      if (Array.isArray(props.data)) {
+        renderData = props.data.map(item => {
+          if (checkIsObject(item)) {
+            return h(
+              'div',
+              Object.keys(item).map(subItem => h('div', item[subItem])),
+            )
+          }
 
-      return createElement('div', {}, renderData)
+          return h('div', item)
+        })
+
+        return h('div', renderData)
+      }
+
+      if (checkIsObject(props.data)) {
+        renderData = Object.keys(props.data).map(item =>
+          h('div', props.data[item]),
+        )
+      }
+
+      return h('div', renderData)
     }
-
-    if (this.checkIsObject(this.data)) {
-      renderData = Object.keys(this.data).map(item =>
-        createElement('div', this.data[item]),
-      )
-    }
-
-    return createElement('div', {}, renderData)
   },
 }
 </script>

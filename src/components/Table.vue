@@ -1,47 +1,43 @@
 <template>
   <div class="table-result glassmorphism-box">
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left">Name</th>
-            <th class="text-left">Version</th>
-            <th class="text-left">Publisher</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="item in itemList"
-            :key="item.package.name"
-            @click="handleClickTableItem(item)"
-          >
-            <td>{{ item.package.name }}</td>
-            <td>{{ item.package.version }}</td>
-            <td>
-              <div>{{ item.package.publisher.username }}</div>
-              <div>{{ item.package.publisher.email }}</div>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+    <v-table>
+      <thead>
+        <tr>
+          <th class="text-left">Name</th>
+          <th class="text-left">Version</th>
+          <th class="text-left">Publisher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="item in itemList"
+          :key="item.package.name"
+          @click="handleClickTableItem(item)"
+        >
+          <td>{{ item.package.name }}</td>
+          <td>{{ item.package.version }}</td>
+          <td>
+            <div>{{ item.package.publisher.username }}</div>
+            <div>{{ item.package.publisher.email }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Table',
-  props: {
-    itemList: {
-      type: Array,
-      default: () => [],
-    },
+<script setup>
+const props = defineProps({
+  itemList: {
+    type: Array,
+    default: () => [],
   },
-  methods: {
-    handleClickTableItem(item) {
-      this.$emit('set-current-item', item)
-    },
-  },
+})
+
+const emit = defineEmits(['set-current-item'])
+
+const handleClickTableItem = item => {
+  emit('set-current-item', item)
 }
 </script>
 

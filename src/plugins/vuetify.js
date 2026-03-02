@@ -1,12 +1,14 @@
-import IconTelegram from '@/components/customIcons/IconTelegram'
-import Vue from 'vue'
-import Vuetify from 'vuetify/lib/framework'
+import IconTelegram from '@/components/customIcons/IconTelegram.vue'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import 'vuetify/styles'
 
-Vue.use(Vuetify)
-
-export default new Vuetify({
+export default createVuetify({
+  components,
+  directives,
   icons: {
-    iconfont: 'mdi',
+    defaultSet: 'mdi',
     values: {
       telegram: {
         component: IconTelegram,

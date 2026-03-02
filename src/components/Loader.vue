@@ -1,17 +1,14 @@
 <template>
-  <v-overlay :value="isShowLoader">
+  <v-overlay :model-value="isShowLoader" class="align-center justify-center">
     <v-progress-circular indeterminate size="64" />
   </v-overlay>
 </template>
 
-<script>
-export default {
-  props: {
-    isShowLoader: {
-      type: Boolean,
-      default: false,
-    },
+<script setup>
+defineProps({
+  isShowLoader: {
+    type: Boolean,
+    default: false,
   },
-  name: 'Loader',
-}
+})
 </script>
